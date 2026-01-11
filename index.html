@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Raphaël Arnold – Portfolio</title>
 
   <style>
@@ -30,6 +30,7 @@
       transition: background 0.3s, color 0.3s;
     }
 
+    /* BOUTON MODE CLAIR/SOMBRE */
     .theme-toggle {
       position: fixed;
       top: 20px;
@@ -43,23 +44,23 @@
       transition: 0.3s;
       z-index: 1000;
     }
-
     .theme-toggle:hover {
       background: var(--btn-hover);
       transform: translateY(-2px);
     }
 
+    /* SCROLL REVEAL */
     .scroll-reveal {
       opacity: 0;
       transform: translateY(40px);
       transition: 0.8s ease;
     }
-
     .scroll-reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
+    /* HEADER */
     header {
       width: 100%;
       height: 350px;
@@ -68,7 +69,6 @@
       align-items: flex-end;
       padding: 20px;
     }
-
     .logo-name {
       display: flex;
       align-items: center;
@@ -78,33 +78,30 @@
       border-radius: 10px;
       backdrop-filter: blur(4px);
     }
-
     .logo-name img {
       width: 60px;
       height: 60px;
       border-radius: 50%;
       object-fit: cover;
     }
-
     .logo-name h1 {
       margin: 0;
       font-size: 1.9rem;
       font-weight: 600;
     }
 
+    /* SECTION À PROPOS */
     .about {
       padding: 3rem 2rem;
       max-width: 900px;
       margin: auto;
       text-align: center;
     }
-
     .about h2 {
       font-size: 2.2rem;
       margin-bottom: 1rem;
       font-weight: 700;
     }
-
     .about p {
       font-size: 1.15rem;
       opacity: 0.85;
@@ -112,13 +109,11 @@
       max-width: 700px;
       margin: 0 auto 2rem auto;
     }
-
     .about-links {
       display: flex;
       justify-content: center;
       gap: 1rem;
     }
-
     .btn {
       padding: 0.9rem 1.5rem;
       background: var(--btn-bg);
@@ -129,12 +124,12 @@
       font-size: 1rem;
       transition: 0.3s ease;
     }
-
     .btn:hover {
       background: var(--btn-hover);
       transform: translateY(-3px);
     }
 
+    /* GRILLE */
     .grid {
       display: grid;
       gap: 2rem;
@@ -144,6 +139,7 @@
       margin: auto;
     }
 
+    /* STYLE VITRINE */
     .item {
       background: none;
       border: none;
@@ -161,20 +157,15 @@
       height: auto;
       object-fit: contain;
       display: block;
+      transition: transform 0.4s ease;
     }
 
-    .caption {
-      padding: 1rem 0.5rem;
-      font-size: 1rem;
-      opacity: 0.8;
+    /* HOVER ANIMATION */
+    .thumb-wrapper:hover img {
+      transform: scale(1.05);
     }
 
-    .caption small {
-      display: block;
-      opacity: 0.5;
-      margin-top: 0.25rem;
-    }
-
+    /* FOOTER */
     footer {
       text-align: center;
       padding: 2rem;
@@ -182,13 +173,11 @@
       opacity: 0.8;
       font-size: 0.9rem;
     }
-
     footer a {
       color: var(--text);
       text-decoration: none;
       font-weight: 600;
     }
-
     footer a:hover {
       text-decoration: underline;
     }
@@ -203,7 +192,7 @@
 
   <header class="scroll-reveal">
     <div class="logo-name">
-      <img src="images/logo.png" alt="Logo">
+      <img src="images/logo.png" alt="Logo" />
       <h1>Raphaël ARNOLD</h1>
     </div>
   </header>
@@ -215,7 +204,6 @@
       l’illustration et le design numérique. J’aime donner vie à des univers 
       colorés, dynamiques et uniques à travers mes projets.
     </p>
-
     <div class="about-links">
       <a href="https://x.com/TheApothicary" target="_blank" class="btn">Mon Twitter</a>
       <a href="https://www.behance.net/raphaelarnold_" target="_blank" class="btn">Mon Behance</a>
@@ -224,206 +212,27 @@
 
   <div class="grid scroll-reveal">
 
-    <!-- Projet 1 -->
-    <div class="item scroll-reveal">
-      <a href="projet1.html">
-        <div class="thumb-wrapper">
-          <img src="images/projet1.png" alt="Projet 1">
-        </div>
-        <div class="caption">
-          Projet 1
-          <small>images/projet1.png</small>
-        </div>
-      </a>
-    </div>
-
-    <!-- Projet 2 -->
-    <div class="item scroll-reveal">
-      <a href="projet2.html">
-        <div class="thumb-wrapper">
-          <img src="images/projet2.png" alt="Projet 2">
-        </div>
-        <div class="caption">
-          Projet 2
-          <small>images/projet2.png</small>
-        </div>
-      </a>
-    </div>
-
-    <!-- Projet 3 -->
-    <div class="item scroll-reveal">
-      <a href="projet3.html">
-        <div class="thumb-wrapper">
-          <img src="images/projet3.png" alt="Projet 3">
-        </div>
-        <div class="caption">
-          Projet 3
-          <small>images/projet3.png</small>
-        </div>
-      </a>
-    </div>
-
-    <!-- Projet 4 -->
-    <div class="item scroll-reveal">
-      <a href="projet4.html">
-        <div class="thumb-wrapper">
-          <img src="images/projet4.png" alt="Projet 4">
-        </div>
-        <div class="caption">
-          Projet 4
-          <small>images/projet4.png</small>
-        </div>
-      </a>
-    </div>
-
-    <!-- Projet 5 -->
-    <div class="item scroll-reveal">
-      <a href="projet5.html">
-        <div class="thumb-wrapper">
-          <img src="images/projet5.png" alt="Projet 5">
-        </div>
-        <div class="caption">
-          Projet 5
-          <small>images/projet5.png</small>
-        </div>
-      </a>
-    </div>
-
-    <!-- Projet 6 -->
-    <div class="item scroll-reveal">
-      <a href="projet6.html">
-        <div class="thumb-wrapper">
-          <img src="images/projet6.png" alt="Projet 6">
-        </div>
-        <div class="caption">
-          Projet 6
-          <small>images/projet6.png</small>
-        </div>
-      </a>
-    </div>
-
-    <!-- Projet 7 -->
-    <div class="item scroll-reveal">
-      <a href="projet7.html">
-        <div class="thumb-wrapper">
-          <img src="images/projet7.png" alt="Projet 7">
-        </div>
-        <div class="caption">
-          Projet 7
-          <small>images/projet7.png</small>
-        </div>
-      </a>
-    </div>
-
-    <!-- Projet 8 -->
-    <div class="item scroll-reveal">
-      <a href="projet8.html">
-        <div class="thumb-wrapper">
-          <img src="images/projet8.png" alt="Projet 8">
-        </div>
-        <div class="caption">
-          Projet 8
-          <small>images/projet8.png</small>
-        </div>
-      </a>
-    </div>
-
-    <!-- Projet 9 -->
-    <div class="item scroll-reveal">
-      <a href="projet9.html">
-        <div class="thumb-wrapper">
-          <img src="images/projet9.png" alt="Projet 9">
-        </div>
-        <div class="caption">
-          Projet 9
-          <small>images/projet9.png</small>
-        </div>
-      </a>
-    </div>
-
-    <!-- Projet 10 -->
-    <div class="item scroll-reveal">
-      <a href="projet10.html">
-        <div class="thumb-wrapper">
-          <img src="images/projet10.png" alt="Projet 10">
-        </div>
-        <div class="caption">
-          Projet 10
-          <small>images/projet10.png</small>
-        </div>
-      </a>
-    </div>
-
-    <!-- Projet 11 -->
-    <div class="item scroll-reveal">
-      <a href="projet11.html">
-        <div class="thumb-wrapper">
-          <img src="images/projet11.png" alt="Projet 11">
-        </div>
-        <div class="caption">
-          Projet 11
-          <small>images/projet11.png</small>
-        </div>
-      </a>
-    </div>
-
-    <!-- Projet 12 -->
-    <div class="item scroll-reveal">
-      <a href="projet12.html">
-        <div class="thumb-wrapper">
-          <img src="images/projet12.png" alt="Projet 12">
-        </div>
-        <div class="caption">
-          Projet 12
-          <small>images/projet12.png</small>
-        </div>
-      </a>
-    </div>
-
-    <!-- Projet 13 -->
-    <div class="item scroll-reveal">
-      <a href="projet13.html">
-        <div class="thumb-wrapper">
-          <img src="images/projet13.png" alt="Projet 13">
-        </div>
-        <div class="caption">
-          Projet 13
-          <small>images/projet13.png</small>
-        </div>
-      </a>
-    </div>
-
-    <!-- Projet 14 -->
-    <div class="item scroll-reveal">
-      <a href="projet14.html">
-        <div class="thumb-wrapper">
-          <img src="images/projet14.png" alt="Projet 14">
-        </div>
-        <div class="caption">
-          Projet 14
-          <small>images/projet14.png</small>
-        </div>
-      </a>
-    </div>
-
-    <!-- Projet 15 -->
-    <div class="item scroll-reveal">
-      <a href="projet15.html">
-        <div class="thumb-wrapper">
-          <img src="images/projet15.png" alt="Projet 15">
-        </div>
-        <div class="caption">
-          Projet 15
-          <small>images/projet15.png</small>
-        </div>
-      </a>
-    </div>
+    <!-- 15 projets sans nom -->
+    <div class="item scroll-reveal"><a href="projet1.html"><div class="thumb-wrapper"><img src="images/projet1.png"></div></a></div>
+    <div class="item scroll-reveal"><a href="projet2.html"><div class="thumb-wrapper"><img src="images/projet2.png"></div></a></div>
+    <div class="item scroll-reveal"><a href="projet3.html"><div class="thumb-wrapper"><img src="images/projet3.png"></div></a></div>
+    <div class="item scroll-reveal"><a href="projet4.html"><div class="thumb-wrapper"><img src="images/projet4.png"></div></a></div>
+    <div class="item scroll-reveal"><a href="projet5.html"><div class="thumb-wrapper"><img src="images/projet5.png"></div></a></div>
+    <div class="item scroll-reveal"><a href="projet6.html"><div class="thumb-wrapper"><img src="images/projet6.png"></div></a></div>
+    <div class="item scroll-reveal"><a href="projet7.html"><div class="thumb-wrapper"><img src="images/projet7.png"></div></a></div>
+    <div class="item scroll-reveal"><a href="projet8.html"><div class="thumb-wrapper"><img src="images/projet8.png"></div></a></div>
+    <div class="item scroll-reveal"><a href="projet9.html"><div class="thumb-wrapper"><img src="images/projet9.png"></div></a></div>
+    <div class="item scroll-reveal"><a href="projet10.html"><div class="thumb-wrapper"><img src="images/projet10.png"></div></a></div>
+    <div class="item scroll-reveal"><a href="projet11.html"><div class="thumb-wrapper"><img src="images/projet11.png"></div></a></div>
+    <div class="item scroll-reveal"><a href="projet12.html"><div class="thumb-wrapper"><img src="images/projet12.png"></div></a></div>
+    <div class="item scroll-reveal"><a href="projet13.html"><div class="thumb-wrapper"><img src="images/projet13.png"></div></a></div>
+    <div class="item scroll-reveal"><a href="projet14.html"><div class="thumb-wrapper"><img src="images/projet14.png"></div></a></div>
+    <div class="item scroll-reveal"><a href="projet15.html"><div class="thumb-wrapper"><img src="images/projet15.png"></div></a></div>
 
   </div>
 
   <footer class="scroll-reveal">
-    © 2025 — Portfolio de <a href="https://x.com/TheApothicary" target="_blank">Raphaël Arnold</a>  
-    • Tous droits réservés
+    © 2025 — Portfolio de <a href="https://x.com/TheApothicary" target="_blank">Raphaël Arnold</a> • Tous droits réservés
   </footer>
 
   <script>
