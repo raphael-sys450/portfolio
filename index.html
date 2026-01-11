@@ -68,7 +68,7 @@
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      padding-bottom: 90px; /* logo plus bas */
+      padding-bottom: 150px; /* LOGO PLUS BAS */
     }
 
     /* LOGO SANS RECTANGLE */
@@ -94,8 +94,17 @@
     /* GLOW VIOLET */
     @keyframes glow {
       0% { box-shadow: 0 0 10px rgba(180, 0, 255, 0.25); }
-      50% { box-shadow: 0 0 30px rgba(180, 0, 255, 0.7); }
+      50% { box-shadow: 0 0 35px rgba(180, 0, 255, 0.8); }
       100% { box-shadow: 0 0 10px rgba(180, 0, 255, 0.25); }
+    }
+
+    /* NOM EN DESSOUS DU HEADER */
+    .name-title {
+      text-align: center;
+      font-size: 2.6rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
     }
 
     /* ABOUT */
@@ -159,12 +168,13 @@
       border: none;
       border-radius: 0;
       overflow: hidden;
+      cursor: pointer;
     }
 
     /* IMAGES PLUS GRANDES */
     .thumb-wrapper {
       width: 100%;
-      height: 400px;
+      height: 520px; /* PLUS GRANDES */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -180,6 +190,26 @@
 
     .thumb-wrapper:hover img {
       transform: scale(1.05);
+    }
+
+    /* LIGHTBOX */
+    #lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    #lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
     }
 
     footer {
@@ -203,7 +233,7 @@
     @media (max-width: 600px) {
       header {
         height: 280px;
-        padding-bottom: 60px;
+        padding-bottom: 100px;
       }
 
       .logo-name img {
@@ -211,12 +241,12 @@
         height: 90px;
       }
 
-      .logo-name h1 {
-        font-size: 1.4rem;
+      .name-title {
+        font-size: 2rem;
       }
 
       .thumb-wrapper {
-        height: 280px;
+        height: 340px;
       }
     }
   </style>
@@ -231,9 +261,11 @@
   <header class="scroll-reveal">
     <div class="logo-name">
       <img src="images/logo.png" alt="Logo" />
-      <h1>Raphaël ARNOLD</h1>
     </div>
   </header>
+
+  <!-- NOM EN DESSOUS DU HEADER -->
+  <h1 class="name-title scroll-reveal">Raphaël ARNOLD</h1>
 
   <section class="about scroll-reveal">
     <h2>À propos</h2>
@@ -261,26 +293,34 @@
   </section>
 
   <div class="grid scroll-reveal">
-    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet1.jpg"></div></div>
-    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet2.png"></div></div>
-    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet3.png"></div></div>
-    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet4.jpg"></div></div>
-    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet5.jpg"></div></div>
-    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet6.jpg"></div></div>
-    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet7.jpg"></div></div>
-    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet8.jpg"></div></div>
-    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet9.png"></div></div>
-    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet10.png"></div></div>
-    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet11.png"></div></div>
-    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet12.png"></div></div>
-    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet13.png"></div></div>
-    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet14.png"></div></div>
-    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet15.png"></div></div>
+
+    <!-- IMAGES CLIQUABLES -->
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet1.jpg" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet2.png" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet3.png" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet4.jpg" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet5.jpg" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet6.jpg" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet7.jpg" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet8.jpg" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet9.png" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet10.png" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet11.png" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet12.png" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet13.png" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet14.png" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet15.png" onclick="openLightbox(this.src)"></div></div>
+
   </div>
 
   <footer class="scroll-reveal">
     © 2025 — Portfolio de <a href="https://x.com/TheApothicary" target="_blank">Raphaël Arnold</a> • Tous droits réservés
   </footer>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img">
+  </div>
 
   <script>
     const observer = new IntersectionObserver((entries) => {
@@ -292,6 +332,15 @@
     }, { threshold: 0.2 });
 
     document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+    function openLightbox(src) {
+      document.getElementById("lightbox-img").src = src;
+      document.getElementById("lightbox").style.display = "flex";
+    }
+
+    function closeLightbox() {
+      document.getElementById("lightbox").style.display = "none";
+    }
   </script>
 
 </body>
