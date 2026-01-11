@@ -5,19 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Raphaël Arnold – Portfolio</title>
 
-  <!-- Police Inter -->
+  <!-- Police propre et moderne -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --bg: #0f0f10;
       --text: #f5f5f5;
-      --glow: rgba(168, 85, 247, 0.9);
+      --btn-bg: #27272a;
+      --btn-border: #3f3f46;
+      --btn-hover: #3f3f46;
+      --glow: rgba(168, 85, 247, 0.95);
     }
 
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
     }
@@ -32,6 +35,12 @@
       justify-content: center;
       padding-bottom: 40px;
       position: relative;
+      box-shadow: 0 40px 60px -20px rgba(0,0,0,0.6);
+    }
+
+    .logo-name {
+      transform: translateY(90px);
+      z-index: 10;
     }
 
     .logo-name img {
@@ -39,10 +48,11 @@
       height: 200px;
       border-radius: 50%;
       object-fit: cover;
-      animation: glow 3s ease-in-out infinite;
+      animation: logoGlow 3s ease-in-out infinite;
+      filter: drop-shadow(0px 12px 25px rgba(0,0,0,0.55));
     }
 
-    @keyframes glow {
+    @keyframes logoGlow {
       0% { box-shadow: 0 0 15px rgba(180, 0, 255, 0.25); }
       50% { box-shadow: 0 0 45px rgba(180, 0, 255, 0.8); }
       100% { box-shadow: 0 0 15px rgba(180, 0, 255, 0.25); }
@@ -52,60 +62,92 @@
       text-align: center;
       font-size: 2.8rem;
       margin-top: 120px;
+      margin-bottom: 0.5rem;
       font-weight: 900;
     }
 
-    /* GRILLE COLLÉE EXACTE */
+    .about {
+      padding: 2.5rem 1.5rem 1rem;
+      max-width: 900px;
+      margin: 0 auto 1.5rem;
+      text-align: center;
+    }
+
+    .about p {
+      opacity: 0.9;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ICONES SOCIALES */
+    .flat-icons {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+    }
+
+    .flat-icon {
+      width: 32px;
+      height: 32px;
+      fill: currentColor;
+      color: var(--text);
+      transition: transform 0.25s ease;
+    }
+
+    .flat-icon:hover {
+      transform: scale(1.15);
+    }
+
+    /* GRILLE : 3 colonnes, 5 lignes (15 images), collé */
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      width: 100%;
       gap: 0;
+      width: 100%;
     }
 
-    /* Ligne 1 : carrés */
-    .square {
+    .item {
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--bg);
+    }
+
+    .thumb-wrapper {
       width: 100%;
-      height: 600px;
+      height: 700px; /* TOUTES LES IMAGES MÊME TAILLE (rectangles verticaux) */
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
     }
 
-    /* Lignes 2 et 3 : rectangles verticaux */
-    .vertical {
-      width: 100%;
-      height: 900px;
-      overflow: hidden;
-    }
-
-    .square img,
-    .vertical img {
+    .thumb-wrapper img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      object-fit: contain;      /* pas coupé */
+      image-rendering: auto;    /* pas pixelisé */
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
     }
 
-    /* SURVOL */
-    .square:hover img,
-    .vertical:hover img {
-      transform: scale(1.03);
-      box-shadow: 0 0 25px var(--glow);
+    /* Glow survol */
+    .thumb-wrapper:hover img {
+      transform: scale(1.04);
+      box-shadow: 0 0 35px var(--glow);
     }
 
-    /* CLIC */
+    /* Glow après clic (permanent) */
     .selected-image {
-      transform: scale(1.03);
-      box-shadow: 0 0 35px var(--glow) !important;
+      transform: scale(1.05);
+      box-shadow:
+        0 0 40px var(--glow),
+        0 0 80px rgba(168,85,247,0.8);
     }
 
     /* LIGHTBOX */
     #lightbox {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.85);
+      inset: 0;
+      background: rgba(0,0,0,0.88);
       display: none;
       align-items: center;
       justify-content: center;
@@ -116,32 +158,44 @@
       max-width: 90%;
       max-height: 90%;
       border-radius: 10px;
+      box-shadow: 0 0 45px rgba(0,0,0,0.9);
     }
 
-    /* FOOTER IDENTIQUE AU PDF */
+    /* FOOTER STYLE PDF */
     footer {
       text-align: center;
-      padding: 3rem;
-      margin-top: 3rem;
+      padding: 3rem 1rem;
+      margin-top: 2rem;
     }
 
     .behance-footer {
-      font-size: 2.2rem;
+      font-size: 2.3rem;
       font-weight: 900;
       color: var(--text);
       text-decoration: none;
-      letter-spacing: 1px;
+      letter-spacing: 0.08em;
     }
 
     .behance-footer:hover {
       color: #22d3ee;
-      text-shadow: 0 0 25px var(--glow);
+      text-shadow:
+        0 0 18px var(--glow),
+        0 0 34px rgba(34,211,238,0.9);
     }
 
     /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .thumb-wrapper {
+        height: 550px;
+      }
+    }
+
     @media (max-width: 900px) {
       .grid {
         grid-template-columns: repeat(2, 1fr);
+      }
+      .thumb-wrapper {
+        height: 500px;
       }
     }
 
@@ -149,42 +203,116 @@
       .grid {
         grid-template-columns: 1fr;
       }
-      .square { height: 400px; }
-      .vertical { height: 600px; }
+      .thumb-wrapper {
+        height: 420px;
+      }
+      .name-title {
+        font-size: 2.1rem;
+      }
     }
   </style>
 </head>
 
 <body>
 
+  <!-- HEADER + LOGO -->
   <header>
     <div class="logo-name">
       <img src="images/logo.png" alt="Logo" />
     </div>
   </header>
 
+  <!-- NOM + DESCRIPTION (remis) -->
   <h1 class="name-title">Raphaël ARNOLD</h1>
 
-  <!-- GRILLE EXACTE -->
+  <section class="about">
+    <p>
+      Je suis Raphaël Arnold, graphiste passionné par la création visuelle,
+      l’illustration et le design numérique. J’aime donner vie à des univers
+      colorés, dynamiques et uniques à travers mes projets.
+    </p>
+
+    <div class="flat-icons">
+      <a href="https://x.com/TheApothicary" target="_blank">
+        <svg viewBox="0 0 24 24" class="flat-icon">
+          <path fill="currentColor" d="M18.244 2H21.5l-7.42 8.49L22 22h-6.843l-5.01-6.545L4.5 22H1.245l7.92-9.06L2 2h6.843l4.713 6.175L18.244 2z"/>
+        </svg>
+      </a>
+      <a href="https://www.behance.net/raphaelarnold_" target="_blank">
+        <svg viewBox="0 0 24 24" class="flat-icon">
+          <path fill="currentColor" d="M4.5 7H9c1.657 0 3 1.343 3 3 0 .795-.31 1.515-.816 2.047A2.99 2.99 0 0 1 12 14c0 1.657-1.343 3-3 3H4.5V7zm3.9 4.2c.663 0 1.2-.537 1.2-1.2s-.537-1.2-1.2-1.2H6.3v2.4h2.1zm.3 4.2c.663 0 1.2-.537 1.2-1.2s-.537-1.2-1.2-1.2H6.3v2.4h2.4zM14.25 12c0-2.485 1.79-4.5 4.5-4.5 2.61 0 4.35 1.845 4.35 4.65v.45h-6.3c.15.9.9 1.65 2.1 1.65.75 0 1.47-.3 2.1-.9l1.35 1.5c-.9.9-2.25 1.5-3.6 1.5-2.76 0-4.5-2.04-4.5-4.35zm6.3-1.2c-.15-.9-.75-1.65-1.8-1.65s-1.65.75-1.8 1.65h3.6zM14.25 7.5h4.5v1.5h-4.5V7.5z"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- GRILLE : 3 colonnes x 5 lignes (15 visuels) -->
   <div class="grid">
 
-    <!-- LIGNE 1 : CARRÉS -->
-    <div class="square"><img src="images/projet1.jpg" onclick="selectImage(this); openLightbox(this.src)"></div>
-    <div class="square"><img src="images/projet2.png" onclick="selectImage(this); openLightbox(this.src)"></div>
-    <div class="square"><img src="images/projet3.png" onclick="selectImage(this); openLightbox(this.src)"></div>
+    <!-- Colle tes 15 visuels ici (tous mêmes dimensions affichées) -->
+    <div class="item"><div class="thumb-wrapper">
+      <img src="images/projet1.jpg" alt="" onclick="selectImage(this); openLightbox(this.src)">
+    </div></div>
 
-    <!-- LIGNE 2 : VERTICAUX -->
-    <div class="vertical"><img src="images/projet4.jpg" onclick="selectImage(this); openLightbox(this.src)"></div>
-    <div class="vertical"><img src="images/projet5.jpg" onclick="selectImage(this); openLightbox(this.src)"></div>
-    <div class="vertical"><img src="images/projet6.jpg" onclick="selectImage(this); openLightbox(this.src)"></div>
+    <div class="item"><div class="thumb-wrapper">
+      <img src="images/projet2.png" alt="" onclick="selectImage(this); openLightbox(this.src)">
+    </div></div>
 
-    <!-- LIGNE 3 : VERTICAUX -->
-    <div class="vertical"><img src="images/projet7.jpg" onclick="selectImage(this); openLightbox(this.src)"></div>
-    <div class="vertical"><img src="images/projet8.jpg" onclick="selectImage(this); openLightbox(this.src)"></div>
-    <div class="vertical"><img src="images/projet9.png" onclick="selectImage(this); openLightbox(this.src)"></div>
+    <div class="item"><div class="thumb-wrapper">
+      <img src="images/projet3.png" alt="" onclick="selectImage(this); openLightbox(this.src)">
+    </div></div>
+
+    <div class="item"><div class="thumb-wrapper">
+      <img src="images/projet4.jpg" alt="" onclick="selectImage(this); openLightbox(this.src)">
+    </div></div>
+
+    <div class="item"><div class="thumb-wrapper">
+      <img src="images/projet5.jpg" alt="" onclick="selectImage(this); openLightbox(this.src)">
+    </div></div>
+
+    <div class="item"><div class="thumb-wrapper">
+      <img src="images/projet6.jpg" alt="" onclick="selectImage(this); openLightbox(this.src)">
+    </div></div>
+
+    <div class="item"><div class="thumb-wrapper">
+      <img src="images/projet7.jpg" alt="" onclick="selectImage(this); openLightbox(this.src)">
+    </div></div>
+
+    <div class="item"><div class="thumb-wrapper">
+      <img src="images/projet8.jpg" alt="" onclick="selectImage(this); openLightbox(this.src)">
+    </div></div>
+
+    <div class="item"><div class="thumb-wrapper">
+      <img src="images/projet9.png" alt="" onclick="selectImage(this); openLightbox(this.src)">
+    </div></div>
+
+    <div class="item"><div class="thumb-wrapper">
+      <img src="images/projet10.png" alt="" onclick="selectImage(this); openLightbox(this.src)">
+    </div></div>
+
+    <div class="item"><div class="thumb-wrapper">
+      <img src="images/projet11.png" alt="" onclick="selectImage(this); openLightbox(this.src)">
+    </div></div>
+
+    <div class="item"><div class="thumb-wrapper">
+      <img src="images/projet12.png" alt="" onclick="selectImage(this); openLightbox(this.src)">
+    </div></div>
+
+    <div class="item"><div class="thumb-wrapper">
+      <img src="images/projet13.png" alt="" onclick="selectImage(this); openLightbox(this.src)">
+    </div></div>
+
+    <div class="item"><div class="thumb-wrapper">
+      <img src="images/projet14.png" alt="" onclick="selectImage(this); openLightbox(this.src)">
+    </div></div>
+
+    <div class="item"><div class="thumb-wrapper">
+      <img src="images/projet15.png" alt="" onclick="selectImage(this); openLightbox(this.src)">
+    </div></div>
 
   </div>
 
+  <!-- FOOTER STYLE PDF -->
   <footer>
     <a href="https://www.behance.net/raphaelarnold_" target="_blank" class="behance-footer">
       See more on my Behance
@@ -193,20 +321,24 @@
 
   <!-- LIGHTBOX -->
   <div id="lightbox" onclick="closeLightbox()">
-    <img id="lightbox-img">
+    <img id="lightbox-img" alt="">
   </div>
 
   <script>
+    // Glow permanent au clic
     function selectImage(img) {
-      document.querySelectorAll('.square img, .vertical img').forEach(i =>
+      document.querySelectorAll('.thumb-wrapper img').forEach(i =>
         i.classList.remove('selected-image')
       );
       img.classList.add('selected-image');
     }
 
+    // Lightbox
     function openLightbox(src) {
-      document.getElementById("lightbox-img").src = src;
-      document.getElementById("lightbox").style.display = "flex";
+      const lb = document.getElementById("lightbox");
+      const lbImg = document.getElementById("lightbox-img");
+      lbImg.src = src;
+      lb.style.display = "flex";
     }
 
     function closeLightbox() {
