@@ -12,7 +12,7 @@
     :root {
       --bg: #0f0f10;
       --text: #ffffff;
-      --glow: rgba(168, 85, 247, 0.95);
+      --glow: rgba(168, 85, 247, 0.95); /* couleur du glow = couleur du footer */
     }
 
     body {
@@ -94,7 +94,7 @@
       transform: scale(1.15);
     }
 
-    /* GRILLE : 3 lignes × 5 colonnes, bloc centré, images collées */
+    /* GRILLE 3×5 */
     .portfolio-wrapper {
       display: flex;
       justify-content: center;
@@ -105,7 +105,6 @@
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 0;
-      /* grand carré centré */
       max-width: 1200px;
       width: 100%;
     }
@@ -116,12 +115,12 @@
       background: var(--bg);
     }
 
-    /* Ligne 1 : carrés ~ 227 x 243 (ratio ≈ 0.93) */
+    /* Ligne 1 : carrés */
     .cell.square {
       aspect-ratio: 227.2 / 243.35;
     }
 
-    /* Lignes 2 & 3 : verticaux ~ 227 x 348 (ratio ≈ 0.65) */
+    /* Lignes 2 & 3 : verticaux */
     .cell.vertical {
       aspect-ratio: 227.2 / 347.8;
     }
@@ -129,18 +128,19 @@
     .cell img {
       width: 100%;
       height: 100%;
-      object-fit: contain;              /* pas coupé */
-      image-rendering: auto;            /* pas pixelisé */
-      transition: transform 0.3s ease;
+      object-fit: cover;          /* remplit la zone */
+      object-position: center;    /* coupe proprement */
+      image-rendering: auto;
+      transition: transform 0.3s ease, filter 0.3s ease;
     }
 
-    /* Glow hover (subtil) */
+    /* Glow hover (plus doux) */
     .cell:hover img {
-      transform: scale(1.03);
-      filter: drop-shadow(0 0 18px var(--glow));
+      transform: scale(1.02);
+      filter: drop-shadow(0 0 10px var(--glow));
     }
 
-    /* Glow + animation type "lightboxZoom" après clic */
+    /* Glow permanent après clic */
     .cell img.selected-image {
       animation: lightboxZoom 0.35s ease forwards;
     }
@@ -151,20 +151,20 @@
         filter: drop-shadow(0 0 0 rgba(0,0,0,0));
       }
       60% {
-        transform: scale(1.08);
-        filter:
-          drop-shadow(0 0 25px var(--glow))
-          drop-shadow(0 0 40px var(--glow));
-      }
-      100% {
         transform: scale(1.05);
         filter:
-          drop-shadow(0 0 22px var(--glow))
-          drop-shadow(0 0 32px rgba(168,85,247,0.9));
+          drop-shadow(0 0 12px var(--glow))
+          drop-shadow(0 0 18px var(--glow));
+      }
+      100% {
+        transform: scale(1.03);
+        filter:
+          drop-shadow(0 0 10px var(--glow))
+          drop-shadow(0 0 14px rgba(168,85,247,0.7));
       }
     }
 
-    /* LIGHTBOX (avec même anim sur l'image ouverte) */
+    /* LIGHTBOX */
     #lightbox {
       position: fixed;
       inset: 0;
@@ -184,9 +184,10 @@
 
     #lightbox img.zoom {
       animation: lightboxZoom 0.35s ease forwards;
+      filter: drop-shadow(0 0 14px var(--glow));
     }
 
-    /* FOOTER (texte blanc, comme sur ton PDF) */
+    /* FOOTER (même couleur que le glow) */
     footer {
       text-align: center;
       padding: 3rem 1rem 2rem;
@@ -196,14 +197,14 @@
     .behance-footer {
       font-size: 2.3rem;
       font-weight: 900;
-      color: #ffffff;      /* blanc pur */
+      color: var(--glow); /* même couleur que le glow */
       text-decoration: none;
       letter-spacing: 0.08em;
     }
 
     .behance-footer:hover {
-      color: #22d3ee;
-      text-shadow: 0 0 18px #22d3ee;
+      color: #ffffff;
+      text-shadow: 0 0 18px var(--glow);
     }
 
     footer p {
@@ -213,15 +214,9 @@
     }
 
     /* RESPONSIVE */
-    @media (max-width: 1100px) {
-      .grid {
-        max-width: 1000px;
-      }
-    }
-
     @media (max-width: 900px) {
       .grid {
-        grid-template-columns: repeat(3, 1fr); /* garde une grille propre en réduisant */
+        grid-template-columns: repeat(3, 1fr);
       }
     }
 
@@ -238,7 +233,7 @@
 
 <body>
 
-  <!-- HEADER + LOGO -->
+  <!-- HEADER -->
   <header>
     <div class="logo-name">
       <img src="images/logo.png" alt="Logo" />
@@ -269,30 +264,30 @@
     </div>
   </section>
 
-  <!-- GRILLE 3×5 : 1ère ligne carrés, 2 suivantes verticales -->
+  <!-- GRILLE -->
   <div class="portfolio-wrapper">
     <div class="grid">
 
-      <!-- LIGNE 1 : 5 carrés -->
-      <div class="cell square"><img src="images/projet1.jpg"  alt="" onclick="selectImage(this); openLightbox(this.src)"></div>
-      <div class="cell square"><img src="images/projet2.png"  alt="" onclick="selectImage(this); openLightbox(this.src)"></div>
-      <div class="cell square"><img src="images/projet3.png"  alt="" onclick="selectImage(this); openLightbox(this.src)"></div>
-      <div class="cell square"><img src="images/projet4.jpg"  alt="" onclick="selectImage(this); openLightbox(this.src)"></div>
-      <div class="cell square"><img src="images/projet5.jpg"  alt="" onclick="selectImage(this); openLightbox(this.src)"></div>
+      <!-- LIGNE 1 -->
+      <div class="cell square"><img src="images/projet1.jpg" onclick="selectImage(this); openLightbox(this.src)"></div>
+      <div class="cell square"><img src="images/projet2.png" onclick="selectImage(this); openLightbox(this.src)"></div>
+      <div class="cell square"><img src="images/projet3.png" onclick="selectImage(this); openLightbox(this.src)"></div>
+      <div class="cell square"><img src="images/projet4.jpg" onclick="selectImage(this); openLightbox(this.src)"></div>
+      <div class="cell square"><img src="images/projet5.jpg" onclick="selectImage(this); openLightbox(this.src)"></div>
 
-      <!-- LIGNE 2 : 5 verticaux -->
-      <div class="cell vertical"><img src="images/projet6.jpg"  alt="" onclick="selectImage(this); openLightbox(this.src)"></div>
-      <div class="cell vertical"><img src="images/projet7.jpg"  alt="" onclick="selectImage(this); openLightbox(this.src)"></div>
-      <div class="cell vertical"><img src="images/projet8.jpg"  alt="" onclick="selectImage(this); openLightbox(this.src)"></div>
-      <div class="cell vertical"><img src="images/projet9.png"  alt="" onclick="selectImage(this); openLightbox(this.src)"></div>
-      <div class="cell vertical"><img src="images/projet10.png" alt="" onclick="selectImage(this); openLightbox(this.src)"></div>
+      <!-- LIGNE 2 -->
+      <div class="cell vertical"><img src="images/projet6.jpg" onclick="selectImage(this); openLightbox(this.src)"></div>
+      <div class="cell vertical"><img src="images/projet7.jpg" onclick="selectImage(this); openLightbox(this.src)"></div>
+      <div class="cell vertical"><img src="images/projet8.jpg" onclick="selectImage(this); openLightbox(this.src)"></div>
+      <div class="cell vertical"><img src="images/projet9.png" onclick="selectImage(this); openLightbox(this.src)"></div>
+      <div class="cell vertical"><img src="images/projet10.png" onclick="selectImage(this); openLightbox(this.src)"></div>
 
-      <!-- LIGNE 3 : 5 verticaux -->
-      <div class="cell vertical"><img src="images/projet11.png" alt="" onclick="selectImage(this); openLightbox(this.src)"></div>
-      <div class="cell vertical"><img src="images/projet12.png" alt="" onclick="selectImage(this); openLightbox(this.src)"></div>
-      <div class="cell vertical"><img src="images/projet13.png" alt="" onclick="selectImage(this); openLightbox(this.src)"></div>
-      <div class="cell vertical"><img src="images/projet14.png" alt="" onclick="selectImage(this); openLightbox(this.src)"></div>
-      <div class="cell vertical"><img src="images/projet15.png" alt="" onclick="selectImage(this); openLightbox(this.src)"></div>
+      <!-- LIGNE 3 -->
+      <div class="cell vertical"><img src="images/projet11.png" onclick="selectImage(this); openLightbox(this.src)"></div>
+      <div class="cell vertical"><img src="images/projet12.png" onclick="selectImage(this); openLightbox(this.src)"></div>
+      <div class="cell vertical"><img src="images/projet13.png" onclick="selectImage(this); openLightbox(this.src)"></div>
+      <div class="cell vertical"><img src="images/projet14.png" onclick="selectImage(this); openLightbox(this.src)"></div>
+      <div class="cell vertical"><img src="images/projet15.png" onclick="selectImage(this); openLightbox(this.src)"></div>
 
     </div>
   </div>
@@ -302,32 +297,29 @@
     <a href="https://www.behance.net/raphaelarnold_" target="_blank" class="behance-footer">
       See more on my Behance
     </a>
-    <p>@ 2026 - Raphael Arnold</p>
+    <p>@ 2026 - Raphaël Arnold</p>
   </footer>
 
   <!-- LIGHTBOX -->
   <div id="lightbox" onclick="closeLightbox()">
-    <img id="lightbox-img" alt="">
+    <img id="lightbox-img">
   </div>
 
   <script>
-    // Glow + anim type lightboxZoom sur la vignette cliquée
     function selectImage(img) {
       document.querySelectorAll('.cell img').forEach(i => {
         i.classList.remove('selected-image');
       });
-      // re-trigger animation
       void img.offsetWidth;
       img.classList.add('selected-image');
     }
 
-    // Lightbox avec anim lightboxZoom sur l'image ouverte
     function openLightbox(src) {
       const lb = document.getElementById("lightbox");
       const lbImg = document.getElementById("lightbox-img");
       lbImg.classList.remove('zoom');
       lbImg.src = src;
-      void lbImg.offsetWidth; // reset anim
+      void lbImg.offsetWidth;
       lbImg.classList.add('zoom');
       lb.style.display = "flex";
     }
