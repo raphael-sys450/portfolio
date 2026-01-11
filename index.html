@@ -1,243 +1,356 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raphael Arnold – Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raphaël Arnold – Portfolio</title>
 
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: system-ui, sans-serif;
-            background: #05040a;
-            color: #f5f5f5;
-            line-height: 1.6;
-        }
-        a { color: inherit; text-decoration: none; }
+  <style>
+    :root {
+      --bg: #0f0f10;
+      --text: #f5f5f5;
+      --btn-bg: #27272a;
+      --btn-border: #3f3f46;
+      --btn-hover: #3f3f46;
+    }
 
-        /* Glow animation */
-        @keyframes glowPulse {
-            0% { box-shadow: 0 0 8px rgba(168,85,247,0.4); }
-            50% { box-shadow: 0 0 18px rgba(168,85,247,0.9); }
-            100% { box-shadow: 0 0 8px rgba(168,85,247,0.4); }
-        }
+    .light {
+      --bg: #f5f5f5;
+      --text: #0f0f10;
+      --btn-bg: #e5e5e5;
+      --btn-border: #cfcfcf;
+      --btn-hover: #dcdcdc;
+    }
 
-        /* Fade-in animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.96); }
-            to { opacity: 1; transform: scale(1); }
-        }
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+    }
 
-        /* Lightbox zoom animation */
-        @keyframes lightboxZoom {
-            from { transform: scale(0.7); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--btn-bg);
+      border: 1px solid var(--btn-border);
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--text);
+      transition: 0.3s;
+      z-index: 1000;
+    }
 
-        /* Header */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 32px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            background: rgba(5,4,10,0.9);
-            position: sticky;
-            top: 0;
-            backdrop-filter: blur(10px);
-            z-index: 10;
-        }
+    .theme-toggle:hover {
+      background: var(--btn-hover);
+      transform: translateY(-2px);
+    }
 
-        .logo {
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            padding: 6px 12px;
-            border-radius: 8px;
-            animation: glowPulse 2.5s infinite ease-in-out;
-        }
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: 0.8s ease;
+    }
 
-        nav a { margin: 0 12px; opacity: 0.7; }
-        nav a:hover, nav a.active { opacity: 1; }
+    .scroll-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-        /* Social icons */
-        .socials {
-            display: flex;
-            gap: 14px;
-        }
-        .socials img {
-            width: 22px;
-            height: 22px;
-            opacity: 0.75;
-            transition: 0.25s ease;
-        }
-        .socials img:hover {
-            opacity: 1;
-            transform: scale(1.15);
-        }
+    /* HEADER */
+    header {
+      width: 100%;
+      height: 360px;
+      background: url('images/banner.png') center/cover no-repeat;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 40px;
+      position: relative;
+      box-shadow: 0 40px 60px -20px rgba(0,0,0,0.6); /* OMBRE SOUS LE HEADER */
+    }
 
-        /* Hero */
-        .hero {
-            padding: 70px 32px 40px;
-            max-width: 900px;
-            margin: auto;
-        }
-        .hero h1 { font-size: 2.4rem; margin-bottom: 12px; }
-        .hero p { color: rgba(245,245,245,0.8); max-width: 500px; }
+    /* LOGO GÉANT À CHEVAL SUR LE HEADER */
+    .logo-name {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.7rem;
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      backdrop-filter: none;
+      transform: translateY(90px);
+      z-index: 10;
+    }
 
-        /* Portfolio */
-        .portfolio {
-            padding: 20px 32px 60px;
-            max-width: 1200px;
-            margin: auto;
-        }
-        .portfolio h2 { font-size: 1.6rem; margin-bottom: 16px; }
+    .logo-name img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      animation: glow 3s ease-in-out infinite;
+      filter: drop-shadow(0px 12px 25px rgba(0,0,0,0.55)); /* OMBRE 3D */
+    }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            width: 100%;
-            overflow: hidden;
-            border-radius: 12px;
-        }
-        .item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.3s ease;
-            cursor: pointer;
-            animation: fadeIn 0.6s ease forwards;
-        }
-        .item:hover img {
-            transform: scale(1.06);
-            box-shadow: 0 0 20px rgba(168,85,247,0.8);
-            filter: saturate(1.1);
-        }
+    /* GLOW VIOLET */
+    @keyframes glow {
+      0% { box-shadow: 0 0 15px rgba(180, 0, 255, 0.25); }
+      50% { box-shadow: 0 0 45px rgba(180, 0, 255, 0.8); }
+      100% { box-shadow: 0 0 15px rgba(180, 0, 255, 0.25); }
+    }
 
-        /* Lightbox */
-        #lightbox {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.85);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 50;
-        }
-        #lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 12px;
-            box-shadow: 0 0 25px rgba(168,85,247,0.8);
-        }
+    /* NOM EN DESSOUS DU HEADER */
+    .name-title {
+      text-align: center;
+      font-size: 2.8rem;
+      margin-top: 120px;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            margin-top: 40px;
-        }
-        footer .behance {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: #a855f7;
-        }
-        footer p {
-            color: rgba(200,200,200,0.7);
-            font-size: 0.9rem;
-        }
+    /* ABOUT */
+    .about {
+      padding: 3rem 2rem;
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+    }
 
-        @media (max-width: 900px) {
-            .grid { grid-template-columns: repeat(3, 1fr); }
-        }
-        @media (max-width: 600px) {
-            .grid { grid-template-columns: repeat(2, 1fr); }
-        }
-    </style>
+    .about h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .about p {
+      font-size: 1.15rem;
+      opacity: 0.85;
+      line-height: 1.7;
+      max-width: 700px;
+      margin: 0 auto 2rem auto;
+    }
+
+    /* ICONES */
+    .flat-icons {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .flat-icon {
+      width: 34px;
+      height: 34px;
+      fill: currentColor;
+      color: var(--text);
+      transition: transform 0.3s ease;
+    }
+
+    .flat-icon:hover {
+      transform: scale(1.2);
+    }
+
+    .light .flat-icon {
+      color: #000;
+    }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      padding: 2rem;
+      max-width: 1500px;
+      margin: auto;
+    }
+
+    .item {
+      background: none;
+      border: none;
+      border-radius: 0;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    /* IMAGES PLUS GRANDES */
+    .thumb-wrapper {
+      width: 100%;
+      height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .thumb-wrapper img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      transition: transform 0.4s ease;
+    }
+
+    .thumb-wrapper:hover img {
+      transform: scale(1.05);
+    }
+
+    /* LIGHTBOX */
+    #lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    #lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        height: 280px;
+        padding-bottom: 20px;
+      }
+
+      .logo-name img {
+        width: 150px;
+        height: 150px;
+      }
+
+      .logo-name {
+        transform: translateY(70px);
+      }
+
+      .name-title {
+        margin-top: 100px;
+        font-size: 2.2rem;
+      }
+
+      .thumb-wrapper {
+        height: 340px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
-    <div class="logo">RAPHAEL ARNOLD</div>
+  <button class="theme-toggle" onclick="document.body.classList.toggle('light')">
+    Mode clair / sombre
+  </button>
 
-    <nav>
-        <a href="index.html" class="active">Home</a>
-        <a href="cv.html">Resume</a>
-    </nav>
-
-    <div class="socials">
-        <a href="https://x.com/TheApothicary" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg">
-        </a>
-        <a href="https://www.behance.net/raphaelarnold_" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Behance_logo.svg">
-        </a>
+  <header class="scroll-reveal">
+    <div class="logo-name">
+      <img src="images/logo.png" alt="Logo" />
     </div>
-</header>
+  </header>
 
-<section class="hero">
-    <h1>Graphic Designer & Illustrator</h1>
-    <p>I create modern, impactful visuals tailored to each project’s needs.</p>
-</section>
+  <h1 class="name-title scroll-reveal">Raphaël ARNOLD</h1>
 
-<section class="portfolio">
-    <h2>Portfolio</h2>
+  <section class="about scroll-reveal">
+    <h2>À propos</h2>
+    <p>
+      Je suis Raphaël Arnold, graphiste passionné par la création visuelle, 
+      l’illustration et le design numérique. J’aime donner vie à des univers 
+      colorés, dynamiques et uniques à travers mes projets.
+    </p>
 
-    <div class="grid">
-        <div class="item"><img src="images/projet1.jpg"></div>
-        <div class="item"><img src="images/projet2.png"></div>
-        <div class="item"><img src="images/projet3.png"></div>
-        <div class="item"><img src="images/projet4.jpg"></div>
-        <div class="item"><img src="images/projet5.jpg"></div>
-        <div class="item"><img src="images/projet6.jpg"></div>
-        <div class="item"><img src="images/projet7.jpg"></div>
-        <div class="item"><img src="images/projet8.jpg"></div>
-        <div class="item"><img src="images/projet9.png"></div>
-        <div class="item"><img src="images/projet10.png"></div>
-        <div class="item"><img src="images/projet11.png"></div>
-        <div class="item"><img src="images/projet12.png"></div>
-        <div class="item"><img src="images/projet13.png"></div>
-        <div class="item"><img src="images/projet14.png"></div>
-        <div class="item"><img src="images/projet15.png"></div>
+    <div class="about-links flat-icons">
+
+      <a href="https://x.com/TheApothicary" target="_blank">
+        <svg viewBox="0 0 24 24" class="flat-icon">
+          <path fill="currentColor" d="M18.244 2H21.5l-7.42 8.49L22 22h-6.843l-5.01-6.545L4.5 22H1.245l7.92-9.06L2 2h6.843l4.713 6.175L18.244 2z"/>
+        </svg>
+      </a>
+
+      <a href="https://www.behance.net/raphaelarnold_" target="_blank">
+        <svg viewBox="0 0 24 24" class="flat-icon">
+          <path fill="currentColor" d="M4.5 7H9c1.657 0 3 1.343 3 3 0 .795-.31 1.515-.816 2.047A2.99 2.99 0 0 1 12 14c0 1.657-1.343 3-3 3H4.5V7zm3.9 4.2c.663 0 1.2-.537 1.2-1.2s-.537-1.2-1.2-1.2H6.3v2.4h2.1zm.3 4.2c.663 0 1.2-.537 1.2-1.2s-.537-1.2-1.2-1.2H6.3v2.4h2.4zM14.25 12c0-2.485 1.79-4.5 4.5-4.5 2.61 0 4.35 1.845 4.35 4.65v.45h-6.3c.15.9.9 1.65 2.1 1.65.75 0 1.47-.3 2.1-.9l1.35 1.5c-.9.9-2.25 1.5-3.6 1.5-2.76 0-4.5-2.04-4.5-4.35zm6.3-1.2c-.15-.9-.75-1.65-1.8-1.65s-1.65.75-1.8 1.65h3.6zM14.25 7.5h4.5v1.5h-4.5V7.5z"/>
+        </svg>
+      </a>
+
     </div>
-</section>
+  </section>
 
-<!-- LIGHTBOX -->
-<div id="lightbox">
-    <img src="">
-</div>
+  <div class="grid scroll-reveal">
 
-<footer>
-    <div class="behance">
-        <a href="https://www.behance.net/raphaelarnold_" target="_blank">See more on my Behance</a>
-    </div>
-    <p>© 2026 – Raphael Arnold</p>
-</footer>
+    <!-- IMAGES CLIQUABLES -->
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet1.jpg" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet2.png" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet3.png" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet4.jpg" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet5.jpg" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet6.jpg" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet7.jpg" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet8.jpg" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet9.png" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet10.png" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet11.png" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet12.png" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet13.png" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet14.png" onclick="openLightbox(this.src)"></div></div>
+    <div class="item scroll-reveal"><div class="thumb-wrapper"><img src="images/projet15.png" onclick="openLightbox(this.src)"></div></div>
 
-<script>
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImg = lightbox.querySelector("img");
+  </div>
 
-    document.querySelectorAll(".item img").forEach(img => {
-        img.addEventListener("click", () => {
-            lightboxImg.src = img.src;
+  <footer class="scroll-reveal">
+    © 2025 — Portfolio de <a href="https://x.com/TheApothicary" target="_blank">Raphaël Arnold</a> • Tous droits réservés
+  </footer>
 
-            // Reset animation
-            lightboxImg.style.animation = "none";
-            void lightboxImg.offsetWidth;
-            lightboxImg.style.animation = "lightboxZoom 0.35s ease forwards";
+  <!-- LIGHTBOX -->
+  <div id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img">
+  </div>
 
-            lightbox.style.display = "flex";
-        });
-    });
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
 
-    lightbox.addEventListener("click", () => {
-        lightbox.style.display = "none";
-    });
-</script>
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+    function openLightbox(src) {
+      document.getElementById("lightbox-img").src = src;
+      document.getElementById("lightbox").style.display = "flex";
+    }
+
+    function closeLightbox() {
+      document.getElementById("lightbox").style.display = "none";
+    }
+  </script>
 
 </body>
 </html>
