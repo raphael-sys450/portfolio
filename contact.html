@@ -1,1 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact – Raphael Arnold</title>
 
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            background: #05040a;
+            color: #f5f5f5;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+        a { color: inherit; text-decoration: none; }
+
+        /* Glow animation */
+        @keyframes glowPulse {
+            0% { box-shadow: 0 0 8px rgba(168,85,247,0.4); }
+            50% { box-shadow: 0 0 18px rgba(168,85,247,0.9); }
+            100% { box-shadow: 0 0 8px rgba(168,85,247,0.4); }
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Back button */
+        .back {
+            display: inline-block;
+            margin-bottom: 30px;
+            padding: 10px 18px;
+            background: linear-gradient(90deg, #a855f7, #22d3ee);
+            color: #05040a;
+            font-weight: 700;
+            border-radius: 8px;
+            transition: 0.25s ease;
+        }
+        .back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 18px rgba(168,85,247,0.7);
+        }
+
+        /* Contact container */
+        .contact-section {
+            max-width: 900px;
+            margin: auto;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .contact-section h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 12px rgba(168,85,247,0.4);
+        }
+
+        /* Contact card */
+        .contact-block {
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            backdrop-filter: blur(4px);
+            margin-bottom: 30px;
+        }
+
+        .contact-block h2 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: #cba6ff;
+        }
+
+        /* Form */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #a855f7;
+            box-shadow: 0 0 12px rgba(168,85,247,0.5);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Submit button with glow */
+        .send-button {
+            padding: 12px 22px;
+            background: linear-gradient(90deg, #a855f7, #22d3ee);
+            color: #05040a;
+            font-weight: 700;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            animation: glowPulse 2.5s infinite ease-in-out;
+            transition: 0.25s ease;
+        }
+
+        .send-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 22px rgba(168,85,247,0.9);
+        }
+    </style>
+</head>
+
+<body>
+
+<a class="back" href="index.html">← Back to Portfolio</a>
+
+<div class="contact-section">
+    <h1>Contact</h1>
+
+    <div class="contact-block">
+        <h2>Send me a message</h2>
+
+        <form action="mailto:your.email@example.com" method="POST" enctype="text/plain">
+            <input type="text" name="name" placeholder="Your name" required>
+            <input type="email" name="email" placeholder="Your email" required>
+            <textarea name="message" placeholder="Your message" required></textarea>
+
+            <button type="submit" class="send-button">Send Message</button>
+        </form>
+    </div>
+
+    <div class="contact-block">
+        <h2>Direct contact</h2>
+        <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+    </div>
+</div>
+
+</body>
+</html>
