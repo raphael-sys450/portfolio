@@ -22,6 +22,36 @@
       color: var(--text);
     }
 
+    /* NAVIGATION */
+    .navbar {
+      width: 100%;
+      padding: 1.2rem 0;
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(15, 15, 16, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      border-bottom: 1px solid rgba(168, 85, 247, 0.15);
+    }
+
+    .nav-link {
+      color: var(--text);
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: 0.25s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--glow);
+      text-shadow: 0 0 12px var(--glow);
+    }
+
     /* HEADER */
     header {
       width: 100%;
@@ -32,6 +62,7 @@
       justify-content: center;
       padding-bottom: 40px;
       position: relative;
+      margin-top: 80px; /* important pour laisser la nav fixe */
       box-shadow: 0 40px 60px -20px rgba(0,0,0,0.6);
     }
 
@@ -116,12 +147,10 @@
       background: var(--bg);
     }
 
-    /* Ligne 1 : carrés */
     .cell.square {
       aspect-ratio: 227.2 / 243.35;
     }
 
-    /* Lignes 2 & 3 : verticaux */
     .cell.vertical {
       aspect-ratio: 227.2 / 347.8;
     }
@@ -135,13 +164,11 @@
       transition: transform 0.3s ease, filter 0.3s ease;
     }
 
-    /* Glow hover (corrigé + adouci) */
     .cell:hover img {
       transform: scale(1.02);
       filter: drop-shadow(0 0 6px var(--glow)) !important;
     }
 
-    /* Glow permanent après clic */
     .cell img.selected-image {
       animation: lightboxZoom 0.35s ease forwards;
     }
@@ -214,7 +241,6 @@
       opacity: 0.7;
     }
 
-    /* RESPONSIVE */
     @media (max-width: 900px) {
       .grid {
         grid-template-columns: repeat(3, 1fr);
@@ -233,6 +259,12 @@
 </head>
 
 <body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-link">Portfolio</a>
+    <a href="cv.html" class="nav-link">CV</a>
+  </nav>
 
   <!-- HEADER -->
   <header>
