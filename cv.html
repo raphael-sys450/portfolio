@@ -61,7 +61,7 @@
       justify-content: center;
       padding-bottom: 40px;
       position: relative;
-      margin-top: 80px; /* important pour laisser la nav fixe */
+      margin-top: 80px;
       box-shadow: 0 40px 60px -20px rgba(0,0,0,0.6);
     }
 
@@ -107,6 +107,63 @@
       margin-bottom: 1.5rem;
     }
 
+    /* ANIMATION */
+    @keyframes skillAppear {
+      0% {
+        opacity: 0;
+        transform: translateY(12px) scale(0.92);
+        filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+      }
+      60% {
+        opacity: 1;
+        transform: translateY(0) scale(1.03);
+        filter: drop-shadow(0 0 6px var(--glow));
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+      }
+    }
+
+    /* SKILLS GRID */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .skill {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      text-align: center;
+      transition: 0.25s ease;
+      opacity: 0;
+      animation: skillAppear 0.7s ease forwards;
+    }
+
+    .skill:nth-child(1) { animation-delay: 0.1s; }
+    .skill:nth-child(2) { animation-delay: 0.2s; }
+    .skill:nth-child(3) { animation-delay: 0.3s; }
+    .skill:nth-child(4) { animation-delay: 0.4s; }
+    .skill:nth-child(5) { animation-delay: 0.5s; }
+    .skill:nth-child(6) { animation-delay: 0.6s; }
+    .skill:nth-child(7) { animation-delay: 0.7s; }
+
+    .skill:hover svg {
+      filter: drop-shadow(0 0 12px var(--glow));
+      transform: scale(1.08);
+    }
+
+    .skill span {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    /* DOWNLOAD BUTTON */
     .download-btn {
       display: inline-block;
       margin: 2rem auto;
@@ -189,59 +246,18 @@
     </div>
 
     <h2>Compétences</h2>
-    <div class="section">
-      • Illustration digitale<br>
-      • Identité visuelle<br>
-      • Affiches & communication<br>
-      • Motion design (bases)<br>
-      • UI/UX design<br>
-      • Web design<br>
-      • Photoshop, Illustrator, InDesign, After Effects<br>
-      • HTML / CSS / JS
-    </div>
+    <div class="section skills-grid">
 
-    <h2>Expériences</h2>
-    <div class="section">
-      <strong>Graphiste – Team Arkad (2025 – présent)</strong><br>
-      Direction artistique, visuels esport, communication réseaux.
+      <!-- Photoshop -->
+      <div class="skill">
+        <svg width="48" height="48" viewBox="0 0 48 48">
+          <rect width="48" height="48" rx="8" fill="#001E36"/>
+          <text x="10" y="32" font-family="Inter" font-size="22" fill="#31A8FF" font-weight="700">Ps</text>
+        </svg>
+        <span>Photoshop</span>
+      </div>
 
-      <br><br>
-
-      <strong>Freelance – Nebulae Esport (2023)</strong><br>
-      Identité visuelle, direction artistique.
-
-      <br><br>
-
-      <strong>Assistant mesure – CADAGEO (2022)</strong><br>
-      Participation à un projet de rénovation.
-    </div>
-
-    <h2>Formation</h2>
-    <div class="section">
-      <strong>BUT MMI – IUT Cergy Sarcelles (2024 – 2027)</strong><br>
-      Métiers du Multimédia et de l’Internet.
-
-      <br><br>
-
-      <strong>Baccalauréat STI2D (SIN) – LTP Saint-Nicolas (2024)</strong>
-    </div>
-
-    <h2>Contact</h2>
-    <div class="section">
-      Email : raphael.arnold@example.com<br>
-      X : @TheApothicary<br>
-      Behance : behance.net/raphaelarnold_<br>
-      Localisation : Le Kremlin-Bicêtre, France
-    </div>
-
-  </div>
-
-  <footer>
-    <a href="https://www.behance.net/raphaelarnold_" target="_blank" class="behance-footer">
-      See more on my Behance
-    </a>
-    <p>@ 2026 - Raphaël Arnold</p>
-  </footer>
-
-</body>
-</html>
+      <!-- Illustrator -->
+      <div class="skill">
+        <svg width="48" height="48" viewBox="0 0 48 48">
+          <rect width="48" height="48" rx="8" fill="#330000"/>
